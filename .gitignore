@@ -1,0 +1,9 @@
+# all ignore
+/*
+/.*
+
+# track files
+!/colors
+!/.gitconfig
+!/.gitignore
+!/neobundle.vim
