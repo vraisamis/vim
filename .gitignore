@@ -6,4 +6,4 @@
 !/colors
 !/.gitconfig
 !/.gitignore
-!/neobundle.vim
+!/plugin.vimrc
