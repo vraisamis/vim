@@ -28,6 +28,9 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/vimfiler'
 ""neocomplete 自動補完
 NeoBundle 'Shougo/neocomplete.vim'
+""neosnippet スニペット
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 ""abolish 変数命名規則変換
 "NeoBundle 'tpope/vim-abolish'
 ""tcomment コメントアウトトグル
@@ -57,7 +60,31 @@ nnoremap [unite]b :Unite bookmark<CR>
 ""unite-outline
 nnoremap [unite]o :Unite outline<CR>
 
-""vimfiler
+""neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#dictionary#dictionaries = {
+			\ 'default' : '',
+			\ 'vimshell' : $HOME.'/.vimshell_hist'
+			\ }
+inoremap <expr><C-l> neocomplete#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_neocomplete_cr_function()<CR>
+function! s:my_neocomplete_cr_function()
+	return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+if !exists('g:neocomplete#sources#omni#input_patterns')
+	let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+""neosnippet
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+xmap <C-s> <Plug>(neosnippet_expand_target)
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 ""platex.vim
 let g:platex_suite_main_file       = "index"
