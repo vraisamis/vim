@@ -8,7 +8,7 @@ if has('vim_starting')
 endif
 
 "" Required:
-call neobunjdle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
