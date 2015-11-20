@@ -31,6 +31,8 @@ NeoBundle 'Shougo/neocomplete.vim'
 ""neosnippet スニペット
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+"" vim-javacomplete2
+NeoBundle 'vim-scripts/vim-javacomplete2'
 ""abolish 変数命名規則変換
 "NeoBundle 'tpope/vim-abolish'
 ""tcomment コメントアウトトグル
@@ -86,6 +88,12 @@ xmap <C-s> <Plug>(neosnippet_expand_target)
 imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+""vim-javacomplete2
+autocmd FileType java set omnifunc=javacomplete#Complete
+imap <F4> <Plug>(JavaComplete-Imports-Add)
+imap <F4> <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <F4> <Plug>(JavaComplete-Imports-Add)
+nmap <F4> <Plug>(JavaComplete-Imports-RemoveUnused)
 ""platex.vim
 let g:platex_suite_main_file       = "index"
 let g:platex_suite_latex_compiler  = "platex"
