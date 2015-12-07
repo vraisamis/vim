@@ -17,13 +17,20 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------
 "Install
 "----------------
-""vundle
-NeoBundle 'gmarik/vundle'
 ""unite 融合プラグイン
 NeoBundle 'Shougo/unite.vim'
 ""unite-outline コードアウトライン(fork版)
 NeoBundle 'Shougo/unite-outline'
 
+""vimproc
+NeoBundle 'Shougo/vimproc.vim', {
+			\ 'build' : {
+			\	'cygwin' : 'make -f make_cygwin.mak',
+			\	'linux' : 'make',
+			\	},
+			\ }
+""vimshell Shell on Vim
+NeoBundle 'Shougo/vimshell'
 ""vimfiler ファイラー
 NeoBundle 'Shougo/vimfiler'
 ""neocomplete 自動補完
@@ -33,6 +40,8 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 "" vim-javacomplete2
 NeoBundle 'vim-scripts/vim-javacomplete2'
+"" vim-marching C++ completion
+NeoBundle 'osyo-manga/vim-marching'
 ""abolish 変数命名規則変換
 "NeoBundle 'tpope/vim-abolish'
 ""tcomment コメントアウトトグル
@@ -94,6 +103,23 @@ imap <F4> <Plug>(JavaComplete-Imports-Add)
 imap <F4> <Plug>(JavaComplete-Imports-RemoveUnused)
 nmap <F4> <Plug>(JavaComplete-Imports-Add)
 nmap <F4> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+""vim-marching
+"let g:marching_backend = "sync_clang_command"
+let g:marching_clang_command_option = "-std=c++1y"
+" use with neocomplete 
+let g:marching_enable_neocomplete = 1
+if !exists('g:neocomplete#force_omni_input_patterns')
+	let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.cpp =
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:marching_include_paths = filter(
+			\ split(glob('/usr/include/c++/*'), '\n') +
+			\ split(glob('/usr/include/*/c++/*'), '\n') +
+			\ split(glob('/usr/include/*/'), '\n'),
+			\ 'isdirectory(v:val)')
+
 ""platex.vim
 let g:platex_suite_main_file       = "index"
 let g:platex_suite_latex_compiler  = "platex"
