@@ -17,9 +17,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------
 "Install
 "----------------
-""unite $BM;9g%W%i%0%$%s(B
+""unite 融合プラグイン
 NeoBundle 'Shougo/unite.vim'
-""unite-outline $B%3!<%I%"%&%H%i%$%s(B(fork$BHG(B)
+""unite-outline コードアウトライン(fork版)
 NeoBundle 'Shougo/unite-outline'
 
 ""vimproc
@@ -31,28 +31,28 @@ NeoBundle 'Shougo/vimproc.vim', {
 			\ }
 ""vimshell Shell on Vim
 NeoBundle 'Shougo/vimshell'
-""vimfiler $B%U%!%$%i!<(B
+""vimfiler ファイラー
 NeoBundle 'Shougo/vimfiler'
-""neocomplete $B<+F0Jd40(B
+""neocomplete 自動補完
 NeoBundle 'Shougo/neocomplete.vim'
-""neosnippet $B%9%K%Z%C%H(B
+""neosnippet スニペット
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 "" vim-javacomplete2
 NeoBundle 'vim-scripts/vim-javacomplete2'
 "" vim-marching C++ completion
 NeoBundle 'osyo-manga/vim-marching'
-""abolish $BJQ?tL?L>5,B'JQ49(B
+""abolish 変数命名規則変換
 "NeoBundle 'tpope/vim-abolish'
-""tcomment $B%3%a%s%H%"%&%H%H%0%k(B
+""tcomment コメントアウトトグル
 "NeoBundle 'tomtom/tcomment_vim'
-"" platex.vim $B%3%s%Q%$%k$G$-$k(B
+"" platex.vim コンパイルできる
 NeoBundle 'lambdalisue/platex.vim'
-""quickrun $B%3!<%I$N$*<j7Z<B9T(B
+""quickrun コードのお手軽実行
 NeoBundle 'thinca/vim-quickrun'
-""lightline $B>pJs9T6/2=(B
+""lightline 情報行強化
 NeoBundle 'itchyny/lightline.vim'
-""vim-indent-guides $B%$%s%G%s%H2D;k2=(B
+""vim-indent-guides インデント可視化
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
 "----------------
@@ -64,13 +64,60 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 nnoremap <Space> <silent> <nop>
 nmap <Space> [unite]
 nnoremap [unite]u :Unite
-nnoremap [unite]f :Unite file<CR>
+"nnoremap [unite]f :Unite file<CR>
 nnoremap [unite]c :Unite tab buffer<CR>
 nnoremap [unite]h :Unite file_mru directory_mru<CR>
 nnoremap [unite]b :Unite bookmark<CR>
+""  Unite menu settings
+nnoremap [unite]m :Unite menu:action<CR>
+" init
+if !exists("g:unite_source_menu_menus")
+	let g:unite_source_menu_menus = {}
+endif
+let g:unite_source_menu_menus.action = {
+			\ 'description' : 'My Shortcuts',
+			\ }
+let g:unite_source_menu_menus.action.candidates = [
+			\ [ '~/.vim' , expand('~/.vim') ],
+			\ [ 'vimrc' , expand('~/.vimrc') ],
+			\ [ 'plugin' , expand('~/.vim/plugin.vimrc') ],
+			\ [ 'VimFiler' , 'VimFiler' ],
+			\ [ 'VimShell' , 'VimShell' ],
+			\ [ 'run cpp' , 'QuickRun cpp'],
+			\ ]
+
+function! g:unite_source_menu_menus.action.map(key, value)
+	let [word, value] = a:value
+	if isdirectory(value)
+		return {
+					\ 'word'              : '[directory] '.word,
+					\ 'kind'              : 'command',
+					\ 'action__command' : ':VimFiler '.value
+					\ }
+	elseif !empty(glob(value))
+		return {
+					\ 'word'           : '[file] '.word,
+					\ 'kind'           : 'file',
+					\ 'default_action' : 'tabdrop',
+					\ 'action__path'   : value
+					\ }
+	else
+		return {
+					\ 'word'            : '[command] '.word,
+					\ 'kind'            : 'command',
+					\ 'action__command' : value
+					\ }
+	endif
+endfunction
+
 ""unite-outline
 nnoremap [unite]o :Unite outline<CR>
 
+""vimproc
+""vimshell
+let g:vimshell_prompt_expr='getcwd()." > "'
+let g:vimshell_prompt_pattern='^\f\+ > '
+""vimfiler
 ""neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
