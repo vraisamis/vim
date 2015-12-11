@@ -107,7 +107,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "norm
 "----------------
 "import
 "----------------
-source plugin.vimrc
+source ~/.vim/plugin.vimrc
 set showcmd
 " add tag filepath
 

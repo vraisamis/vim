@@ -79,7 +79,7 @@ let g:unite_source_menu_menus.action = {
 			\ }
 let g:unite_source_menu_menus.action.candidates = [
 			\ [ '~/.vim' , expand('~/.vim') ],
-			\ [ 'vimrc' , expand('~/.vimrc') ],
+			\ [ 'vimrc' , expand('~/.vim/vimrc') ],
 			\ [ 'plugin' , expand('~/.vim/plugin.vimrc') ],
 			\ [ 'VimFiler' , 'VimFiler' ],
 			\ [ 'VimShell' , 'VimShell' ],
