@@ -84,6 +84,7 @@ let g:unite_source_menu_menus.action.candidates = [
 			\ [ 'VimFiler' , 'VimFiler' ],
 			\ [ 'VimShell' , 'VimShell' ],
 			\ [ 'run cpp' , 'QuickRun cpp'],
+			\ [ 'run and show PDF' , 'call My_latex_compile_and_show_pdf()' ],
 			\ ]
 
 function! g:unite_source_menu_menus.action.map(key, value)
@@ -108,6 +109,12 @@ function! g:unite_source_menu_menus.action.map(key, value)
 					\ 'action__command' : value
 					\ }
 	endif
+endfunction
+
+function! My_latex_compile_and_show_pdf()
+	exec "QuickRun"
+	exec "!evince %:r.pdf &"
+	return
 endfunction
 
 ""unite-outline
@@ -182,7 +189,14 @@ let g:quickrun_config = {
 \	"cpp": {
 \		'command': 'g++',
 \		'cmdopt': '-std=c++11'
-\	}
+\	},
+\	"tex": {
+\		'command' : 'latexmk',
+\		'cmdopt' : '-pdfdvi',
+\		'exec' : ['%c %o %s'],
+\		'outputter' : 'error',
+\		'outputter/error/error' : 'quickfix',
+\	},
 \}
 
 ""lightline
