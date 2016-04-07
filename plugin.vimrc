@@ -54,6 +54,16 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'itchyny/lightline.vim'
 ""vim-indent-guides インデント可視化
 NeoBundle 'nathanaelkane/vim-indent-guides'
+""NERDTree show folder tree
+NeoBundle 'scrooloose/nerdtree'
+
+""vim-markdown markdown
+NeoBundle 'plasticboy/vim-markdown'
+""previm preview in browser
+NeoBundle 'kannokanno/previm'
+""open-browser.vim open favorite browser
+NeoBundle 'tyru/open-browser.vim'
+
 
 "----------------
 "Plugin option
@@ -85,6 +95,7 @@ let g:unite_source_menu_menus.action.candidates = [
 			\ [ 'VimShell' , 'VimShell' ],
 			\ [ 'run cpp' , 'QuickRun cpp'],
 			\ [ 'run and show PDF' , 'call My_latex_compile_and_show_pdf()' ],
+			\ [ 'open in browser' , 'PrevimOpen' ],
 			\ ]
 
 function! g:unite_source_menu_menus.action.map(key, value)
@@ -213,6 +224,8 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
 let g:indent_guides_guide_size=1
 
+""previm
+let g:previm_open_cmd = 'google-chrome'
 """""""" last:
 call neobundle#end()
 
