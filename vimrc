@@ -114,6 +114,7 @@ set showcmd
 "---------------
 "language settings
 "----------------
+""C++
 function! s:cpp()
 	setl path+=/usr/include/c++/4.8.4
 endfunction
@@ -122,6 +123,9 @@ augroup vimrc-cpp
 	autocmd!
 	autocmd FileType cpp call s:cpp()
 augroup END
+
+""markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
 "----------------
 "Omni Completion
 "----------------
@@ -166,10 +170,10 @@ nnoremap S <silent>
 nnoremap ch :setl hlsearch!<CR><C-L>
 
 "簡易コンパイル
-nnoremap [action] <nop>
-nmap ; [action]
-nnoremap [action]c :make %:r<CR>
-nnoremap [action]e :!./%:r<CR>
+"nnoremap [action] <nop>
+"nmap ; [action]
+"nnoremap [action]c :make %:r<CR>
+"nnoremap [action]e :!./%:r<CR>
 
 "補完候補を<C-j><C-k>で移動
 inoremap <C-j> <C-n>
